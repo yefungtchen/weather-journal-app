@@ -1,14 +1,12 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 // ** Express to run server and routes
 const express = require('express');
 
-// ** Start up an instance of app
-const app = express();
-
 // Start up an instance of app
+const app = express();
 
 /* Middleware*/
 // ** Made package in code available
@@ -27,9 +25,19 @@ app.use(cors());
 
 // Initialize the main project folder
 // This line of code connects our server-side code (the code in the server.js file) to our client-side code (the browser code written in the files housed in the website folder).
-
-
 app.use(express.static('website'));
+
+// Setting up the Post Route
+app.post('/', function (req, res) {
+    res.send('POST received')
+  })
+
+// Setting up the Get Route
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', function (req, res) {
+    res.send('Hello world');
+  })
+
 
 // Setup Server
 const port = 8000;
