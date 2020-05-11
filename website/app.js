@@ -31,7 +31,17 @@ const postData = async (url = "", data = {}) => {
 // postData("/addMovie", { movie: " the matrix", score: 5 });
 
 // Async GET
-
+const getData = async (owmMap, apiKey) => {
+  const getResponse = await fetch(owmMap + key);
+  console.log(getResponse);
+  try {
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("error", error);
+  }
+};
 // Updating the UI
 
 // Click Event "Generate"
