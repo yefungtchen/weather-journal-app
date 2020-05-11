@@ -36,7 +36,7 @@ app.get("/all", function (req, res) {
 });
 
 // Setting up the Post Route
-app.post("/addMovie", function (req, res) {
+app.post("/", function (req, res) {
   projectData.temp = req.body.temp;
   projectData.userEntry = req.body.userEntry;
   projectData.date = req.body.date;

@@ -1,6 +1,6 @@
 /* Global Variables */
-const owmURL = "api.openweathermap.org/data/2.5/weather?zip=";
-const apiKey = "fa42b0d875248b9ed2383b52c62b0251";
+const baseURL = "api.openweathermap.org/data/2.5/weather?zip=";
+let api_Key = "fa42b0d875248b9ed2383b52c62b0251";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -31,8 +31,8 @@ const postData = async (url = "", data = {}) => {
 // postData("/addMovie", { movie: " the matrix", score: 5 });
 
 // Async GET
-const getData = async (owmMap, apiKey) => {
-  const getResponse = await fetch(owmMap + key);
+const getData = async (baseURL, zip, api_Key) => {
+  const getResponse = await fetch(baseURL + zip + api_Key);
   console.log(getResponse);
   try {
     const data = await response.json();
@@ -44,4 +44,14 @@ const getData = async (owmMap, apiKey) => {
 };
 // Updating the UI
 
-// Click Event "Generate"
+// Click Event "Generate" : Used Tutorial: FEND Udacity Async JS Lesson 4: Adding Fetch to Your Code
+document.getElementById("generate").addEventListener("click", executeAction);
+
+function executeAction(e) {
+  const zip = document.getElementById("zip").value;
+  const feelings = document.getElementById("feelings").value;
+  function receiveTemperature(baseURL, zip, api_Key) {
+    // Add the Data to the POST request
+  }
+  // POST request: Adding the data which is written into the zip and feelings field
+}
