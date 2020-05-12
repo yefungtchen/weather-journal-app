@@ -29,7 +29,7 @@ app.use(express.static("website"));
 
 // Setting up the Get Route
 // respond with "hello world" when a GET request is made to the homepage
-app.get("/all", function (req, res) {
+app.get("/allData", function (req, res) {
   res.send(JSON.stringify(projectData));
   res.send("Hello world");
   console.log(projectData);
@@ -50,6 +50,7 @@ const port = 8000;
 
 const server = app.listen(port, listening);
 
+// Server Callback
 function listening() {
   console.log("server running");
   console.log(`running on localhost: ${port}`);
