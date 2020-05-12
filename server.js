@@ -42,10 +42,19 @@ app.get("/allData", function (req, res) {
 // Setting up the POST Route (Client sending data to Server)
 app.post("/addWeather", function (req, res) {
   // Attach the data to the Post Request on the req.body
-  console.log(req.body);
+  console.log(req.body)
   res.send("Server received POST request");
   res.end();
 });
+
+// POST an zipCode
+const data = [];
+
+app.post('/location', addLocation);
+
+function addLocation(req, res) {
+  data.push(req.body);
+};
 
 // Setup Server
 const port = 8000;

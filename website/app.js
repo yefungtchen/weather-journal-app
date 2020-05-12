@@ -16,8 +16,15 @@ document.getElementById("generate").addEventListener("click", executeAction);
 
 function executeAction(e) {
   const zipCode = document.getElementById("zip").value;
-  console.log(zipCode + " Zip Code here");
+  console.log("Date: " + newDate);
+  console.log("Zipcode: " + zipCode);
   getData(baseURL, zipCode, api_Key)
+    .then(function (data) {
+      postData('http://localhost:8000/addWeather', { temperature: data.temp, date: newDate, userEntry: feelings })
+        .then(function () {
+          uiUpdate()
+        })
+    })
 }
 
 // Async GET (Client takes data from Server)
@@ -31,6 +38,7 @@ const getData = async (baseURL, zipCode, api_Key) => {
   **/
   // headers.delete()
   console.log(getReq);
+
   try {
     const data = await getReq.json();
     console.log(data);
@@ -51,6 +59,7 @@ const postData = async (url = "", data = {}) => {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+
   try {
     const newData = await postReq.json();
     console.log(newData);
@@ -63,5 +72,15 @@ const postData = async (url = "", data = {}) => {
 
 // postData("/addWeather", { Location: "Frankfurt", Temperature: "20°C" });
 
-
-// Updating the UI
+// Updating the UI is the last thing we do. This function depends on previous data
+const uiUpdate = async () => {
+  const uiRequest = await fetch("/allData");
+  try {
+    const allData = await uiRequest.json();
+    document.getElementById("date").innerHTML = allData.date;
+    document.getElementById("temp").innerHTML = allData.temp;
+    document.getElementById("content").innerHTML = allData.userEntry;
+  } catch (error) {
+    console.log("An error occured", error);
+  }
+}
