@@ -3,9 +3,9 @@
  *    You can use "67059" for Ludwigshafen am Rhein, Germany
  **/
 const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
-let api_Key = "65c6aaaa5a2dec51d7957c4592d3a62f";
+let api_Key = "b571e009c37ae154cf536c52b84b2f1c";
 const countryCode = "de";
-const queryParameter = "appid=";
+const queryParameter = "&appid=";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -23,13 +23,13 @@ function executeAction(e) {
 // Async GET (Client takes data from Server)
 const getData = async (baseURL, zipCode, api_Key) => {
   // Open Weather Map API
-  const getReq = await fetch(baseURL + zipCode + countryCode + "," + queryParameter + api_Key)
+  const getReq = await fetch(baseURL + zipCode + "," + countryCode + queryParameter + api_Key)
   /** Solution for the CORS blocked policy. Found solution in Peer Project Help.
    *  Detailed explanation
    *  https://www.freecodecamp.org/forum/t/calling-openweathermap-api-is-blocked-due-to-cors-header-access-control-allow-origin-missing/191868
    *  https://www.freecodecamp.org/forum/t/cross-domain-calls-why-sometimes-needs-callback/177690
   **/
-  headers.delete();
+  // headers.delete()
   console.log(getReq);
   try {
     const data = await getReq.json();
@@ -62,5 +62,6 @@ const postData = async (url = "", data = {}) => {
 };
 
 // postData("/addWeather", { Location: "Frankfurt", Temperature: "20°C" });
+
 
 // Updating the UI
