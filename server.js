@@ -8,40 +8,42 @@ const express = require("express");
 // Start up an instance of app
 const app = express();
 
-/* Middleware*/
-// ** Made package in code available
+/** Middleware
+ *   "body-parser extract the entire body portion of an incoming request stream and exposes it on req.body."
+ *   (Source: https://stackoverflow.com/questions/38306569/what-does-body-parser-do-with-express)
+ **/
 var bodyParser = require("body-parser");
 
 // Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Cors for cross origin allowance
-// CORS is a node. js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+/** Cors for cross origin allowance
+ *   CORS is a node.js package for providing a Connect/Express middleware that can be
+ *   used to enable CORS with various options.
+ **/
 const cors = require("cors");
 
 // Here we are configuring express to use cors
 app.use(cors());
 
-// Initialize the main project folder
-// This line of code connects our server-side code (the code in the server.js file) to our client-side code (the browser code written in the files housed in the website folder).
+/** Initialize the main project folder
+ *   This line of code connects our server-side code (the code in the server.js file)
+ *   to our client-side code (the browser code written in the files housed in the website folder).
+ **/
 app.use(express.static("website"));
 
-// Setting up the Get Route
-// respond with "hello world" when a GET request is made to the homepage
+// Setting up the GET Route (Client takes data from Server) Returns the projectData object
 app.get("/allData", function (req, res) {
-  res.send(JSON.stringify(projectData));
-  res.send("Hello world");
-  console.log(projectData);
+  res.send("Client received GET request </br>" + projectData);
+  res.end();
 });
 
-// Setting up the Post Route
-app.post("/", function (req, res) {
-  projectData.temp = req.body.temp;
-  projectData.userEntry = req.body.userEntry;
-  projectData.date = req.body.date;
+// Setting up the POST Route (Client sending data to Server)
+app.post("/addWeather", function (req, res) {
+  // Attach the data to the Post Request on the req.body
   console.log(req.body);
-  res.send("POST received, ok ok ok");
+  res.send("Server received POST request");
   res.end();
 });
 
