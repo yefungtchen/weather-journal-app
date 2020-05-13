@@ -35,26 +35,20 @@ app.use(express.static("website"));
 
 // Setting up the GET Route (Client takes data from Server) Returns the projectData object
 app.get("/allData", function (req, res) {
-  res.send("Client received GET request </br>" + projectData);
+  res.json(projectData);
   res.end();
 });
 
 // Setting up the POST Route (Client sending data to Server)
 app.post("/addWeather", function (req, res) {
   // Attach the data to the Post Request on the req.body
-  console.log(req.body)
-  res.send("Server received POST request");
+  projectData.date = req.body.date;
+  projectData.temp = req.body.temp;
+  projectData.userEntry = req.body.userEntry;
+  res.json({"status": "ok"});
+  console.log(projectData);
   res.end();
 });
-
-// POST an zipCode
-const data = [];
-
-app.post('/location', addLocation);
-
-function addLocation(req, res) {
-  data.push(req.body);
-};
 
 // Setup Server
 const port = 8000;
