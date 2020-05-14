@@ -6,18 +6,19 @@
  *    Created everything step-by-step with the codes which were provided by the course material
  **/
 const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
-let api_Key = "b571e009c37ae154cf536c52b84b2f1c";
+const api_Key = "b571e009c37ae154cf536c52b84b2f1c";
 const countryCode = "de";
 const queryParameter = "&appid=";
+const unitConversion = "&units=metric";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = (d.getMonth()+1) + "." + d.getDate() + "." + d.getFullYear();
+let newDate = (d.getMonth() + 1) + "." + d.getDate() + "." + d.getFullYear();
 
 // Async GET (Client takes data from Server)
 const getData = async (baseURL, zipCode, api_Key) => {
   // Open Weather Map API
-  const getReq = await fetch(baseURL + zipCode + "," + countryCode + queryParameter + api_Key)
+  const getReq = await fetch(baseURL + zipCode + "," + countryCode + queryParameter + api_Key + unitConversion)
   /** Solution for the CORS blocked policy. Found solution in Peer Project Help.
    *  Detailed explanation
    *  https://www.freecodecamp.org/forum/t/calling-openweathermap-api-is-blocked-due-to-cors-header-access-control-allow-origin-missing/191868
@@ -82,7 +83,7 @@ function executeAction(e) {
   console.log("3. The Feelings: " + feelings);
   // 1. Get the data from the API first
   getData(baseURL, zipCode, api_Key)
-    // 2. then run the function and post the received data 
+    // 2. then run the function and post the received data
     .then(function (data) {
       postData('http://localhost:8000/addWeather', { temp: data.main.temp, date: newDate, userEntry: feelings })
         // 3. then run the function and update the UI
